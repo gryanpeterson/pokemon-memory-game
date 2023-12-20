@@ -1,4 +1,14 @@
-function Card() {
-  return <div className="h-24 bg-white opacity-100 w-14"></div>;
+function Card({ name, sprite, pokemonSet, shuffleCards, makeSelection }) {
+  return (
+    <div
+      className="rounded-md bg-black/30"
+      onClick={() => {
+        makeSelection(name);
+        shuffleCards(pokemonSet);
+      }}>
+      <img src={sprite} alt="" />
+      <h1 className="text-center text-white capitalize">{name}</h1>
+    </div>
+  );
 }
 export default Card;
