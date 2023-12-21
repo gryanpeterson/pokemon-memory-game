@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+
 function Card({ name, sprite, pokemonSet, shuffleCards, makeSelection }) {
   return (
     <div
