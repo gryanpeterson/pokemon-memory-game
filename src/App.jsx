@@ -5,6 +5,8 @@ import Main from "./components/Main";
 import Header from "./components/Header";
 import { v4 as uuidv4 } from "uuid";
 import StartScreen from "./components/StartScreen";
+import GameOverScreen from "./components/GameOverScreen";
+import Footer from "./components/Footer";
 
 function App() {
   const [score, setScore] = useState(0);
@@ -79,18 +81,25 @@ function App() {
     setGameStatus("in progress");
   };
 
+  const restartGame = () => {
+    setGameStatus("in progress");
+    setScore(0);
+    setSelectedPokemon([]);
+  };
+
   if (gameStatus === "start") {
     return (
       <div
         className="flex flex-col items-center w-screen h-screen bg-right bg-cover"
         style={{ backgroundImage: `url(${bg})` }}>
         <StartScreen startGame={startGame} />
+        <Footer />
       </div>
     );
   } else if (gameStatus === "in progress") {
     return (
       <div
-        className="flex flex-col items-center w-screen h-screen bg-right bg-cover"
+        className="flex flex-col items-center justify-between w-screen h-screen bg-right bg-cover"
         style={{ backgroundImage: `url(${bg})` }}>
         <Header />
         <Score
@@ -104,6 +113,16 @@ function App() {
           makeSelection={makeSelection}
           selectedPokemon={selectedPokemon}
         />
+        <Footer />
+      </div>
+    );
+  } else if (gameStatus === "end") {
+    return (
+      <div
+        className="flex flex-col items-center w-screen h-screen bg-right bg-cover"
+        style={{ backgroundImage: `url(${bg})` }}>
+        <GameOverScreen restartGame={restartGame} />
+        <Footer />
       </div>
     );
   }
