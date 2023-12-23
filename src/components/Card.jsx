@@ -3,7 +3,7 @@ import { useEffect } from "react";
 function Card({ name, sprite, pokemonSet, shuffleCards, makeSelection }) {
   return (
     <div
-      className="rounded-md bg-black/30"
+      className="flex flex-col items-center duration-300 rounded-md bg-black/30 hover:scale-110 "
       onClick={() => {
         makeSelection(name);
         shuffleCards(pokemonSet);

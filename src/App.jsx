@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import bg from "/src/assets/bg.jpg";
 import Score from "./components/Score";
 import Main from "./components/Main";
@@ -14,27 +14,25 @@ function App() {
   const [pokemonSet, setPokemonSet] = useState([]);
   const [selectedPokemon, setSelectedPokemon] = useState([]);
   const [gameStatus, setGameStatus] = useState("start");
+  const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(() => {
-    if (gameStatus === "end") {
-      console.log("Game Over");
-    }
-  }, [gameStatus]);
-
-  useEffect(() => {
+  const fetchPokemon = async () => {
     for (let i = 1; i <= 6; i++) {
-      fetch(`https://pokeapi.co/api/v2/pokemon/${getRandomNumber()}`)
-        .then((response) => response.json())
-        .then((data) => {
-          // console.log(data);
-          let newPokemon = {
-            id: uuidv4(),
-            name: data.name,
-            sprite: data.sprites.front_default,
-          };
-          setPokemonSet((previousState) => [...previousState, newPokemon]);
-        });
+      const response = await fetch(
+        `https://pokeapi.co/api/v2/pokemon/${getRandomNumber()}`
+      );
+      const data = await response.json();
+      let newPokemon = {
+        id: uuidv4(),
+        name: data.name,
+        sprite: data.sprites.front_default,
+      };
+      setPokemonSet((previousState) => [...previousState, newPokemon]);
     }
+  };
+
+  useEffect(() => {
+    fetchPokemon();
   }, []);
 
   const getRandomNumber = () => {
@@ -59,6 +57,7 @@ function App() {
     for (let pokemon of selectedPokemon) {
       if (pokemon === name) {
         setGameStatus("end");
+
         return;
       }
     }
@@ -84,8 +83,14 @@ function App() {
   const restartGame = () => {
     setGameStatus("in progress");
     setScore(0);
+    setPokemonSet([]);
     setSelectedPokemon([]);
+    fetchPokemon();
   };
+
+  if (isLoading) {
+    return <div className="text-black">Is Loading....</div>;
+  }
 
   if (gameStatus === "start") {
     return (
@@ -121,7 +126,7 @@ function App() {
       <div
         className="flex flex-col items-center w-screen h-screen bg-right bg-cover"
         style={{ backgroundImage: `url(${bg})` }}>
-        <GameOverScreen restartGame={restartGame} />
+        <GameOverScreen restartGame={restartGame} fetchPokemon={fetchPokemon} />
         <Footer />
       </div>
     );
