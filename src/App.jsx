@@ -7,6 +7,7 @@ import { v4 as uuidv4 } from "uuid";
 import StartScreen from "./components/StartScreen";
 import GameOverScreen from "./components/GameOverScreen";
 import Footer from "./components/Footer";
+import LevelUpScreen from "./components/LevelUpScreen";
 
 function App() {
   const [score, setScore] = useState(0);
@@ -36,7 +37,7 @@ function App() {
   }, []);
 
   const getRandomNumber = () => {
-    return Math.floor(Math.random() * 151);
+    return Math.floor(Math.random() * 1025);
   };
 
   const shuffleCards = (array) => {
@@ -63,18 +64,14 @@ function App() {
     }
     incrementScore();
     setSelectedPokemon([...selectedPokemon, name]);
+    if (selectedPokemon.length === 5) {
+      setGameStatus("level up");
+    }
   };
 
   const incrementScore = () => {
     setScore(score + 1);
   };
-
-  // const clearSelectedPokemon = () => {
-  //   if (selectedPokemon.length === 6) {
-  //     const emptyArray = [];
-  //     setSelectedPokemon(emptyArray);
-  //   }
-  // };
 
   const startGame = () => {
     setGameStatus("in progress");
@@ -88,9 +85,12 @@ function App() {
     fetchPokemon();
   };
 
-  if (isLoading) {
-    return <div className="text-black">Is Loading....</div>;
-  }
+  const increaseLevel = () => {
+    setGameStatus("in progress");
+    setPokemonSet([]);
+    setSelectedPokemon([]);
+    fetchPokemon();
+  };
 
   if (gameStatus === "start") {
     return (
@@ -127,6 +127,15 @@ function App() {
         className="flex flex-col items-center w-screen h-screen bg-right bg-cover"
         style={{ backgroundImage: `url(${bg})` }}>
         <GameOverScreen restartGame={restartGame} fetchPokemon={fetchPokemon} />
+        <Footer />
+      </div>
+    );
+  } else if (gameStatus === "level up") {
+    return (
+      <div
+        className="flex flex-col items-center w-screen h-screen bg-right bg-cover"
+        style={{ backgroundImage: `url(${bg})` }}>
+        <LevelUpScreen increaseLevel={increaseLevel} />
         <Footer />
       </div>
     );

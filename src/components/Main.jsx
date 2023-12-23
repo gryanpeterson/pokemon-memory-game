@@ -2,7 +2,7 @@ import Card from "./Card";
 
 function Main({ pokemonSet, shuffleCards, makeSelection }) {
   return (
-    <div className="grid w-3/4 grid-cols-3 grid-rows-2 gap-2 place-items-center h-1/2">
+    <div className="grid w-5/6 grid-cols-3 grid-rows-2 gap-2 place-items-center h-1/2 xl:w-3/5 ">
       {pokemonSet.map((pokemon) => {
         return (
           <Card
