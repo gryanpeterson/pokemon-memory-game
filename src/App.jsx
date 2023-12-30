@@ -11,7 +11,9 @@ import LevelUpScreen from "./components/LevelUpScreen";
 
 function App() {
   const [score, setScore] = useState(0);
-  const [highScore, setHighScore] = useState(localStorage.getItem("highScore"));
+  const [highScore, setHighScore] = useState(
+    localStorage.getItem("highScore") || 0
+  );
   const [pokemonSet, setPokemonSet] = useState([]);
   const [selectedPokemon, setSelectedPokemon] = useState([]);
   const [gameStatus, setGameStatus] = useState("start");
