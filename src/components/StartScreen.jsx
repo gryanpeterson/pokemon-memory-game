@@ -4,12 +4,12 @@ function StartScreen({ startGame }) {
       <h1 className="mb-4 text-2xl text-center text-red-600">
         Pokémon Memory Card Game
       </h1>
-      <p className="mx-10 my-4 ">
+      <p className="mx-10 my-4 text-black">
         Don't click on the same card twice! Cards are shuffled after every
         selection.
       </p>
       <button
-        className="p-2 my-1 text-center bg-gray-300 border-2 border-black border-solid rounded-lg"
+        className="p-2 my-1 text-center text-black bg-gray-300 border-2 border-black border-solid rounded-lg"
         onClick={startGame}>
         Start Game
       </button>
