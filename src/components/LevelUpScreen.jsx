@@ -11,9 +11,9 @@ function LevelUpScreen({ increaseLevel }) {
         src={levelUpPikachu}
         alt="Pikachu with a surprised look on their face."
       />
-      <p className="mx-8 my-4">You leveled up!</p>
+      <p className="mx-8 my-4 dark:text-black">You leveled up!</p>
       <button
-        className="p-2 my-1 text-center bg-gray-300 border-2 border-black border-solid rounded-lg"
+        className="p-2 my-1 text-center bg-gray-300 border-2 border-black border-solid rounded-lg dark:text-black"
         onClick={increaseLevel}>
         Next Level
       </button>

@@ -11,9 +11,11 @@ function GameOverScreen({ restartGame }) {
         src={gameOverPikachu}
         alt="Pikachu with a surprised look on their face."
       />
-      <p className="mx-8 my-4">Oh no! You clicked the same card twice!</p>
+      <p className="mx-8 my-4 dark:text-black">
+        Oh no! You clicked the same card twice!
+      </p>
       <button
-        className="p-2 my-1 text-center bg-gray-300 border-2 border-black border-solid rounded-lg"
+        className="p-2 my-1 text-center bg-gray-300 border-2 border-black border-solid rounded-lg dark:text-black"
         onClick={restartGame}>
         Play Again
       </button>
