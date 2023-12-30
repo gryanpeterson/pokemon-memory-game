@@ -20,9 +20,9 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
 
   const fetchPokemon = async () => {
-    for (let i = 1; i <= 6; i++) {
+    for (let pokemonNumber of getUniqueRandomNumbers(1, 151, 6)) {
       const response = await fetch(
-        `https://pokeapi.co/api/v2/pokemon/${getRandomNumber()}`
+        `https://pokeapi.co/api/v2/pokemon/${pokemonNumber}`
       );
       const data = await response.json();
       let newPokemon = {
@@ -38,8 +38,16 @@ function App() {
     fetchPokemon();
   }, []);
 
-  const getRandomNumber = () => {
-    return Math.floor(Math.random() * 1025);
+  const getRandomNumber = (min, max) => {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  };
+
+  const getUniqueRandomNumbers = (min, max, count) => {
+    let numbers = new Set();
+    while (numbers.size < count) {
+      numbers.add(getRandomNumber(min, max));
+    }
+    return Array.from(numbers);
   };
 
   const shuffleCards = (array) => {
