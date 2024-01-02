@@ -55,9 +55,9 @@ function App() {
       newArray[i] = newArray[j];
       newArray[j] = temp;
     }
-    newArray.forEach((object) => {
-      object.id = uuidv4();
-    });
+    // newArray.forEach((object) => {
+    //   object.id = uuidv4();
+    // });
     setPokemonSet(newArray);
   };
 
