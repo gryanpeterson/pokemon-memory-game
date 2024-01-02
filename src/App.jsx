@@ -34,10 +34,6 @@ function App() {
     }
   };
 
-  useEffect(() => {
-    fetchPokemon();
-  }, []);
-
   const getRandomNumber = (min, max) => {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   };
@@ -99,14 +95,13 @@ function App() {
     setScore(0);
     setPokemonSet([]);
     setSelectedPokemon([]);
-    fetchPokemon();
   };
 
   const increaseLevel = () => {
     setGameStatus("in progress");
     setPokemonSet([]);
     setSelectedPokemon([]);
-    fetchPokemon();
+
     updateHighScore();
   };
 
@@ -135,6 +130,9 @@ function App() {
           shuffleCards={shuffleCards}
           makeSelection={makeSelection}
           selectedPokemon={selectedPokemon}
+          fetchPokemon={fetchPokemon}
+          isLoading={isLoading}
+          setIsLoading={setIsLoading}
         />
         <Footer />
       </div>
