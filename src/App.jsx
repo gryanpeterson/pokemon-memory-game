@@ -3,7 +3,7 @@ import bg from "/src/assets/bg.jpg";
 import Score from "./components/Score";
 import Main from "./components/Main";
 import Header from "./components/Header";
-import { v4 as uuidv4 } from "uuid";
+
 import StartScreen from "./components/StartScreen";
 import GameOverScreen from "./components/GameOverScreen";
 import Footer from "./components/Footer";
@@ -25,8 +25,9 @@ function App() {
         `https://pokeapi.co/api/v2/pokemon/${pokemonNumber}`
       );
       const data = await response.json();
+
       let newPokemon = {
-        id: uuidv4(),
+        id: data.id,
         name: data.name,
         sprite: data.sprites.front_default,
       };
